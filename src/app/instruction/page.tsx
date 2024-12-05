@@ -26,7 +26,7 @@ export default function Instruction() {
           <li>Permission for access of camera, microphone, and entire screen sharing is required.</li>
           <li>Be in professional attire and avoid distractions.</li>
           <li>Give a detailed response, providing as much information as you can.</li>
-          <li>Answer the question with examples and projects you've worked on.</li>
+          <li>Answer the question with examples and projects youve worked on.</li>
         </ol>
 
         {/* Mock Interview Link */}
