@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export default function InterviewScreen() {
   const [timer, setTimer] = useState(60); // Initial timer value
@@ -11,6 +11,8 @@ export default function InterviewScreen() {
   const [processing, setProcessing] = useState(false); // Track if the question is being processed
   const [testCompleted, setTestCompleted] = useState(false); // Flag for test completion
 
+  const prevQuestionNumber = useRef<number>(1); // Ref to track previous question number to avoid redundant reading
+  
   // Define the questions
   const questions = [
     "Hi, I'm Avya, and I'll be conducting the interview today. How are you doing?",
@@ -80,7 +82,6 @@ export default function InterviewScreen() {
         setProcessing(false);
         setQuestionNumber(questionNumber + 1);
         setTimer(60); // Reset the timer for the next question
-        readQuestion(questions[questionNumber]); // Read the next question
       }, 2000); // Simulating the processing time (2 seconds)
     } else {
       setTestCompleted(true); // Mark the test as completed after 10 questions
@@ -88,10 +89,12 @@ export default function InterviewScreen() {
   };
 
   useEffect(() => {
-    if (questionNumber <= 10 && !processing) {
+    if (questionNumber <= 10 && questionNumber !== prevQuestionNumber.current) {
+      // Prevent re-reading the same question
       readQuestion(questions[questionNumber - 1]);
+      prevQuestionNumber.current = questionNumber; // Update the ref
     }
-  }, [questionNumber, processing,questions]);
+  }, [questionNumber, questions]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white p-6">
@@ -133,9 +136,7 @@ export default function InterviewScreen() {
 
           <div className="flex space-x-4">
             <button
-              className={`px-6 py-2 rounded text-white ${
-                recording ? "bg-red-500 hover:bg-red-600" : "bg-green-500 hover:bg-green-600"
-              }`}
+              className={`px-6 py-2 rounded text-white ${recording ? "bg-red-500 hover:bg-red-600" : "bg-green-500 hover:bg-green-600"}`}
               onClick={recording ? stopRecording : startRecording}
             >
               {recording ? "Stop Recording" : "Start Recording"}
