@@ -21,7 +21,7 @@ export default function Home() {
         {/* Button to Start the Instructions Setup */}
         <button
           className="w-full px-6 py-3 bg-blue-500 text-white rounded hover:bg-blue-600 mt-6"
-          onClick={() => (window.location.href = "/instructions")}
+          onClick={() => (window.location.href = "/instruction")}
         >
           Start Interview Instructions
         </button>
