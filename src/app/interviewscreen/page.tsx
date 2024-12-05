@@ -91,7 +91,7 @@ export default function InterviewScreen() {
     if (questionNumber <= 10 && !processing) {
       readQuestion(questions[questionNumber - 1]);
     }
-  }, [questionNumber, processing]);
+  }, [questionNumber, processing,questions]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white p-6">
